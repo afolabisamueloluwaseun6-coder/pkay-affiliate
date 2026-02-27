@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pkay Digitals | structured affiliate system</title>
+    <!-- Bootstrap 5 (minimal, only grid & components) + Poppins font -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome 6 (rich icons) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Google Font: Inter + Playfair Display for classic touch -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet">
+    <!-- AOS (animate on scroll) for refined entry animations -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <style>
+        /* ---------- GLOBAL MODERN SOPHISTICATION ---------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8f6f2;  /* warm off-white */
+            color: #1e2a3a;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+        /* smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        /* glassmorphism + overlay layers */
+        .glass {
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 32px;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255,255,255,0.3);
+            box-shadow: 0 20px 40px -12px rgba(0,20,30,0.15);
+        }
+        /* navy-gold premium palette */
+        :root {
+            --navy: #0a1c2f;
+            --navy-light: #1e3a5f;
+            --gold: #c9a959;
+            --gold-soft: #e0cda4;
+            --cream: #f3efe9;
+            --white-soft: #fcfaf7;
+        }
+        /* typography */
+        h1, h2, h3, .serif {
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+        .section-title {
+            font-size: 3.2rem;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            color: var(--navy);
+        }
+        .subhead {
+            font-size: 1.2rem;
+            color: #2b4a6b;
+            max-width: 700px;
+        }
+        /* buttons */
+        .btn-gold {
+            background: var(--gold);
+            color: var(--navy);
+            font-weight: 700;
+            padding: 16px 40px;
+            border-radius: 60px;
+            border: none;
+            box-shadow: 0 20px 30px -10px rgba(201,169,89,0.3);
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-gold:hover {
+            background: #dbb96b;
+            transform: translateY(-4px);
+            box-shadow: 0 28px 36px -12px rgba(201,169,89,0.5);
+            color: var(--navy);
+        }
+        .btn-wa {
+            background: #25D366;
+            color: #0a1c2f;
+            box-shadow: 0 10px 20px -5px rgba(37, 211, 102, 0.3);
+        }
+        .btn-wa:hover {
+            background: #20bd5a;
+            color: #0a1c2f;
+        }
+        .btn-outline-gold {
+            background: transparent;
+            border: 2px solid var(--gold);
+            color: var(--navy);
+            box-shadow: none;
+        }
+        /* overlay effect (background moving wave) */
+        .bg-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at 30% 40%, rgba(201,169,89,0.03) 0%, transparent 30%),
+                        radial-gradient(circle at 80% 70%, rgba(10,28,47,0.02) 0%, transparent 35%);
+            pointer-events: none;
+            z-index: -1;
+        }
+        /* floating particles canvas (dynamic) */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.5;
+        }
+        /* image frames with overlay refinement */
+        .img-premium {
+            border-radius: 30px;
+            background: #dbd2c4;
+            box-shadow: 0 30px 40px -20px rgba(0,0,0,0.25);
+            border: 4px solid rgba(255,255,255,0.7);
+            transition: transform 0.4s ease;
+        }
+        .img-premium:hover {
+            transform: scale(1.01);
+        }
+        .testimonial-premium {
+            background: rgba(255,255,255,0.7);
+            backdrop-filter: blur(8px);
+            border-radius: 40px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.5);
+            box-shadow: 0 20px 40px -18px rgba(0,0,0,0.2);
+        }
+        /* card premium */
+        .feature-card {
+            background: rgba(255,255,255,0.55);
+            backdrop-filter: blur(10px);
+            border-radius: 32px;
+            padding: 30px 26px;
+            border: 1px solid rgba(255,255,240,0.6);
+            box-shadow: 0 12px 30px -10px rgba(10,28,47,0.05);
+            transition: all 0.2s;
+            height: 100%;
+        }
+        .feature-card:hover {
+            background: rgba(255,255,255,0.8);
+            box-shadow: 0 25px 35px -14px var(--gold);
+        }
+        /* faq */
+        .faq-item {
+            border-bottom: 1px solid rgba(10,28,47,0.1);
+            padding: 18px 0;
+        }
+        .faq-question {
+            font-weight: 700;
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            color: var(--navy);
+        }
+        .faq-question i {
+            color: var(--gold);
+            font-size: 1.5rem;
+            transition: 0.3s;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px 20px 10px 0;
+            color: #1e405e;
+        }
+        .faq-item.active .faq-answer {
+            display: block;
+        }
+        .faq-item.active .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+        /* navbar like brand bar (glass) */
+        .navbar-premium {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid rgba(201,169,89,0.25);
+            padding: 18px 0;
+            width: 100%;
+            z-index: 100;
+        }
+        .floating-wa {
+            position: fixed;
+            bottom: 30px; right: 30px;
+            background: #25D366;
+            width: 68px; height: 68px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.2rem;
+            color: white;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.2);
+            z-index: 1000;
+            transition: 0.2s;
+            border: 3px solid white;
+        }
+        .floating-wa:hover {
+            transform: scale(1.07);
+            background: #20bd5a;
+        }
+        /* bootstrap tweaks */
+        .container { max-width: 1280px; }
+        section { padding: 90px 0; }
+    </style>
+</head>
+<body>
+    <!-- background overlay + particles -->
+    <div class="bg-overlay"></div>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- floating WhatsApp -->
+    <a href="https://wa.me/234800000000?text=Hello%20Pkay%20Digitals%2C%20I'm%20interested%20in%20the%20affiliate%20system" target="_blank" class="floating-wa">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- premium glass navbar -->
+    <div class="navbar-premium sticky-top">
+        <div class="container d-flex justify-content-between align-items-center">
+            <div class="logo fs-2 fw-bold" style="color: var(--navy);">Pkay <span style="color: var(--gold);">Digitals</span></div>
+            <div class="d-flex align-items-center gap-4">
+                <span class="d-none d-md-block"><i class="fas fa-phone-alt" style="color: var(--gold);"></i> +234 800 000 0000</span>
+                <a href="https://wa.me/234800000000" target="_blank" class="btn btn-outline-gold rounded-pill px-4 py-2"><i class="fab fa-whatsapp me-2"></i>WhatsApp</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HERO section (with data-aos) -->
+    <section style="padding-top: 40px;">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <div class="col-lg-6" data-aos="fade-right" data-aos-duration="800">
+                    <span class="badge bg-dark text-warning px-4 py-2 mb-4 rounded-pill">🇳🇬 Nigerian students & 9–5</span>
+                    <h1 class="section-title display-4">Stop Wasting Time Scrolling — <span style="color: var(--gold);">Start Earning Real Income</span></h1>
+                    <p class="subhead fs-5">For students and 9–5 workers in Nigeria: Learn a structured affiliate marketing system that turns your smartphone into a step-by-step income machine — without hype, scams, or guesswork.</p>
+                    <div class="d-flex flex-wrap gap-3 mt-4">
+                        <a href="#" class="btn-gold"><i class="fas fa-arrow-right me-2"></i>Get started – ₦15,000</a>
+                        <a href="https://wa.me/234800000000" target="_blank" class="btn btn-outline-gold rounded-pill px-4 py-3"><i class="fab fa-whatsapp me-2"></i>Chat now</a>
+                    </div>
+                    <p class="mt-4 text-muted"><i class="fas fa-hourglass-half text-warning"></i> limited weekly intake — secure your slot</p>
+                </div>
+                <div class="col-lg-6" data-aos="fade-left" data-aos-duration="800">
+                    <!-- Richard Kingsley image with overlay glass -->
+                    <div class="img-premium position-relative" style="height: 460px; background-color: #ffffff;">
+    <img src="pkay.jpeg" alt="Richard Kingsley" style="width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 26px;">
+</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRUST / NOT A TRAP section with overlay card -->
+    <section style="background: rgba(243,239,233,0.5); backdrop-filter: blur(4px);">
+        <div class="container">
+            <div class="glass-card p-5 rounded-5" data-aos="zoom-in-up">
+                <span class="badge bg-gold text-dark mb-3 px-4 py-2" style="background: var(--gold);">no hype · just structure</span>
+                <h2 class="section-title h1">This Is Not Another “Make Money Online” Trap</h2>
+                <div class="row g-4 mt-2">
+                    <div class="col-md-6">
+                        <p class="fs-5">Let’s be honest. Every time someone says “earn online,” your guard goes up — and it should. Too many fake screenshots, exaggerated promises, overnight millionaire stories. <strong>This is not that.</strong></p>
+                    </div>
+                    <div class="col-md-6">
+                        <p class="fs-5">Affiliate marketing is simple: you promote a product, someone buys through your link, you earn a commission. No product creation, no inventory, no shipping. Just structure, traffic, and positioning.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROBLEM direction -->
+    <section>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6" data-aos="fade-right">
+                    <h2 class="section-title">The Real Problem Isn’t Poverty — It’s Direction</h2>
+                    <ul class="list-unstyled mt-4">
+                        <li class="mb-4"><i class="fas fa-times-circle fs-4 me-3" style="color: var(--gold);"></i> Students scroll endlessly, burning time and allowance.</li>
+                        <li class="mb-4"><i class="fas fa-times-circle fs-4 me-3" style="color: var(--gold);"></i> 9–5 workers depend on one salary with no backup plan.</li>
+                        <li class="mb-4"><i class="fas fa-times-circle fs-4 me-3" style="color: var(--gold);"></i> Smartphones used for entertainment instead of income.</li>
+                    </ul>
+                    <div class="glass-card p-4 rounded-4">
+                        <p class="mb-0 fst-italic">"The real enemy is confusion. Random YouTube videos. Unstructured courses. No implementation roadmap. <strong>This system replaces guesswork with clarity."</strong></p>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="fade-left">
+                    <div class="img-premium p-5 text-center" style="background: #cbbca7;">📸 from scrolling → earning (visual concept)</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SYSTEM structured cards -->
+    <section style="background: rgba(255,255,255,0.3); backdrop-filter: blur(4px);">
+        <div class="container">
+            <h2 class="section-title text-center">📈 A Structured System That Turns Your Phone Into a Commission Machine</h2>
+            <p class="text-center subhead mx-auto">You don’t need a new opportunity. You need structure. The Martins Osimen Affiliate System provides a beginner-friendly roadmap.</p>
+            <div class="row g-4 mt-5">
+                <div class="col-md-4" data-aos="flip-up"><div class="feature-card"><i class="fas fa-bullseye fa-2x mb-3" style="color: var(--gold);"></i><h5>What to promote</h5></div></div>
+                <div class="col-md-4" data-aos="flip-up" data-aos-delay="50"><div class="feature-card"><i class="fas fa-chart-line fa-2x mb-3" style="color: var(--gold);"></i><h5>How to position it</h5></div></div>
+                <div class="col-md-4" data-aos="flip-up" data-aos-delay="100"><div class="feature-card"><i class="fas fa-users fa-2x mb-3" style="color: var(--gold);"></i><h5>How to attract buyers</h5></div></div>
+                <div class="col-md-4" data-aos="flip-up"><div class="feature-card"><i class="fas fa-message fa-2x mb-3" style="color: var(--gold);"></i><h5>How to follow up properly</h5></div></div>
+                <div class="col-md-4" data-aos="flip-up"><div class="feature-card"><i class="fas fa-handshake fa-2x mb-3" style="color: var(--gold);"></i><h5>Close sales with confidence</h5></div></div>
+                <div class="col-md-4" data-aos="flip-up"><div class="feature-card" style="background: rgba(10,28,47,0.8); color: white;"><i class="fas fa-circle-check fa-2x mb-3" style="color: var(--gold);"></i><h5>Follow the system. Generate commissions.</h5></div></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MEET YOUR GUIDE -->
+    <section>
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-5" data-aos="fade-right">
+                    <div class="img-premium position-relative" style="height: 400px; background-color: #ffffff;">
+    <img src="pkay.jpeg" alt="Richard Kingsley" style="width: 100%; height: 100%; object-fit: cover; object-position: top center; border-radius: 26px;">
+</div>
+                </div>
+                <div class="col-md-7" data-aos="fade-left">
+                    <h2 class="section-title">Meet Your Guide</h2>
+                    <p class="fs-4">Hi, I’m Richard Kingsley, CEO of Pkay Digitals. I help beginners build structured extra income streams using just their smartphones.</p>
+                    <p>While Martins Osimen created the system, my role is to guide serious beginners through implementation — helping you avoid common mistakes and accelerate your results.</p>
+                    <div class="d-flex align-items-center gap-3 mt-4">
+                        <i class="fab fa-whatsapp fa-3x" style="color: #25D366;"></i>
+                        <span><strong>Direct contact:</strong> +234 800 000 0000 (real person)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS with images -->
+    <section style="background: #f0ebe5;">
+        <div class="container">
+            <h2 class="section-title">Proof That Structure Works</h2>
+            <div class="row g-4">
+                <div class="col-md-6" data-aos="zoom-in">
+                    <div class="testimonial-premium">
+                        <i class="fas fa-quote-left fa-3x" style="color: var(--gold); opacity:0.5;"></i>
+                        <p class="fs-5">“I started last month, followed the steps, and earned ₦45,000. I never thought starting with just my phone could be this simple.” <br>— <strong>Student inside the ecosystem</strong></p>
+                        <div class="img-premium p-3 text-center mt-3" style="background: #cbb99f;">📸 testimonial image / screenshot</div>
+                    </div>
+                </div>
+                <div class="col-md-6" data-aos="zoom-in" data-aos-delay="100">
+                    <div class="testimonial-premium">
+                        <i class="fas fa-quote-left fa-3x" style="color: var(--gold); opacity:0.5;"></i>
+                        <p class="fs-5">“I work full-time but still earned ₦65,000 in 2 weeks by following the structured steps after office hours.” <br>— <strong>9–5 participant</strong></p>
+                        <div class="img-premium p-3 text-center mt-3" style="background: #bba68b;">📸 testimonial image placement</div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-center mt-5"><span class="badge bg-light text-dark p-3">Results vary based on implementation. The structure is what makes the difference.</span></p>
+        </div>
+    </section>
+
+    <!-- VALUE & BONUS -->
+    <section>
+        <div class="container">
+            <div class="glass-card p-5 rounded-5" data-aos="fade-up">
+                <span class="badge bg-dark text-white px-4 py-2 mb-3">worth over ₦300,000</span>
+                <h2 class="section-title">What You’re Getting</h2>
+                <div class="row">
+                    <div class="col-md-7">
+                        <ul class="list-unstyled">
+                            <li class="mb-3"><i class="fas fa-check-circle me-3" style="color: var(--gold);"></i>Affiliate mentorship — ₦100k+</li>
+                            <li class="mb-3"><i class="fas fa-check-circle me-3" style="color: var(--gold);"></i>Funnel & conversion training — ₦50k+</li>
+                            <li class="mb-3"><i class="fas fa-check-circle me-3" style="color: var(--gold);"></i>Facebook & WhatsApp ads mastery — ₦75k+</li>
+                            <li class="mb-3"><i class="fas fa-check-circle me-3" style="color: var(--gold);"></i>Webinar selling & closing — ₦50k+</li>
+                            <li class="mb-3"><i class="fas fa-check-circle me-3" style="color: var(--gold);"></i>Automation setup guidance — ₦40k+</li>
+                        </ul>
+                    </div>
+                    <div class="col-md-5 text-center">
+                        <span class="text-decoration-line-through text-muted fs-2">₦300k</span>
+                        <span class="display-1 fw-bold" style="color: var(--navy);">₦15k</span>
+                        <p class="my-4">Today, you get the entire structured system</p>
+                        <a href="#" class="btn-gold w-100">Join now</a>
+                    </div>
+                </div>
+                <!-- fast action bonus -->
+                <div class="mt-5 p-5" style="background: var(--navy); border-radius: 50px; color: white;">
+                    <h3 class="serif text-white">⚡ Fast Action Bonus</h3>
+                    <div class="row g-3 mt-3">
+                        <div class="col-6 col-md-4"><i class="fas fa-file-lines me-2"></i> WhatsApp scripts</div>
+                        <div class="col-6 col-md-4"><i class="fas fa-layer-group me-2"></i> Funnel wireframes</div>
+                        <div class="col-6 col-md-4"><i class="fas fa-chart-pie me-2"></i> Webinar slides</div>
+                        <div class="col-6 col-md-4"><i class="fas fa-shield me-2"></i> Objection framework</div>
+                        <div class="col-6 col-md-4"><i class="fas fa-check-double me-2"></i> Traffic checklist</div>
+                        <div class="col-6 col-md-4"><i class="fas fa-compass me-2"></i> Positioning blueprint</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section>
+        <div class="container">
+            <h2 class="section-title">🔍 Frequently Asked Questions</h2>
+            <div id="faqList">
+                <div class="faq-item active"><div class="faq-question">1️⃣ Is this another scam? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No. Affiliate marketing is legitimate. No money doubling, crypto, investment scheme, or Ponzi.</div></div>
+                <div class="faq-item"><div class="faq-question">2️⃣ Does this actually work in Nigeria? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. Built around Nigerian buyers, payment systems. Results depend on implementation.</div></div>
+                <div class="faq-item"><div class="faq-question">3️⃣ Do I need a laptop? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No. Start with just your smartphone. Laptop helps later but not required.</div></div>
+                <div class="faq-item"><div class="faq-question">4️⃣ I have zero experience. Can I still do this? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes, beginner-focused: niche, funnels, traffic, follow-up, closing. No prior experience needed.</div></div>
+                <div class="faq-item"><div class="faq-question">5️⃣ What if I don’t have money for ads? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Start lean. System explains beginner-friendly traffic options. Scaling may require reinvestment.</div></div>
+                <div class="faq-item"><div class="faq-question">6️⃣ I’m a student. Is this realistic? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes. If you spend hours on smartphone, this converts attention into income. Discipline matters.</div></div>
+                <div class="faq-item"><div class="faq-question">7️⃣ I work 9–5. Will I have time? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Yes — structure time intentionally. Many implement after hours or weekends.</div></div>
+                <div class="faq-item"><div class="faq-question">8️⃣ How fast can I start earning? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">No fixed timeline. Some see weeks, others longer. Consistency matters.</div></div>
+                <div class="faq-item"><div class="faq-question">9️⃣ What exactly will I be selling? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Promote structured digital products within the affiliate ecosystem.</div></div>
+                <div class="faq-item"><div class="faq-question">🔟 Why is the program ₦15,000? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">Accessible entry for serious beginners. Worth significantly more if learned separately.</div></div>
+                <div class="faq-item"><div class="faq-question">1️⃣1️⃣ What if I still have questions? <i class="fas fa-chevron-down"></i></div><div class="faq-answer">That’s fine. Send a WhatsApp message, ask anything, get clarity.</div></div>
+            </div>
+            <div class="glass-card p-4 d-flex justify-content-between align-items-center mt-5">
+                <span><i class="fab fa-whatsapp fa-2x me-2" style="color:#25D366;"></i> Still have questions? Talk to a real person.</span>
+                <a href="https://wa.me/234800000000" target="_blank" class="btn btn-wa rounded-pill px-4 py-2"><i class="fab fa-whatsapp me-2"></i>Start WhatsApp chat</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section style="background: var(--navy); color: white;">
+        <div class="container text-center">
+            <h2 class="display-2 serif text-white">Ready to Start?</h2>
+            <p class="fs-3 my-4">Full clarity. Realistic expectations. Step-by-step guidance.</p>
+            <a href="#" class="btn-gold btn-lg fs-3 py-3 px-5">Get Started</a>
+            <p class="mt-5"><i class="fab fa-whatsapp me-2"></i>WhatsApp: +234 800 000 0000 (quick reply)</p>
+        </div>
+    </section>
+
+    <!-- footer -->
+    <footer class="py-5 bg-dark text-white-50">
+        <div class="container text-center">
+            <span class="fs-3 fw-bold text-white">Pkay <span style="color: var(--gold);">Digitals</span></span>
+            <p class="mt-3">© 2025 · Martins Osimen affiliate system · integrity in education</p>
+        </div>
+    </footer>
+
+    <!-- scripts: bootstrap, AOS, particles, custom -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: false, mirror: true });
+        // particle animation background (sophisticated)
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
+        let particles = [];
+
+        function initParticles() {
+            width = window.innerWidth;
+            height = window.innerHeight;
+            canvas.width = width;
+            canvas.height = height;
+            particles = [];
+            for (let i = 0; i < 50; i++) {
+                particles.push({
+                    x: Math.random() * width,
+                    y: Math.random() * height,
+                    radius: Math.random() * 2 + 1,
+                    speedX: (Math.random() - 0.5) * 0.2,
+                    speedY: (Math.random() - 0.5) * 0.2,
+                    color: `rgba(201,169,89,${Math.random() * 0.3})`
+                });
+            }
+        }
+
+        function drawParticles() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach(p => {
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = p.color;
+                ctx.fill();
+                p.x += p.speedX;
+                p.y += p.speedY;
+                if (p.x < 0 || p.x > width) p.speedX *= -1;
+                if (p.y < 0 || p.y > height) p.speedY *= -1;
+            });
+            requestAnimationFrame(drawParticles);
+        }
+
+        window.addEventListener('resize', () => {
+            initParticles();
+        });
+        initParticles();
+        drawParticles();
+
+        // FAQ toggle
+        document.querySelectorAll('.faq-question').forEach(q => {
+            q.addEventListener('click', function() {
+                this.parentElement.classList.toggle('active');
+            });
+        });
+    </script>
+</body>
+</html>
